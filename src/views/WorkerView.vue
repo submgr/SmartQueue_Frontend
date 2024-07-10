@@ -53,12 +53,12 @@
           </ion-row>
         </ion-grid>
       </div>
-      <div v-if="stage == 'workspaceIsFreeOfWork'" id="container">
+      <div v-if="stage == 'workspaceIsFreeOfWork'" class="container">
         <strong class="capitalize">Ждем!</strong>
         <p>Сейчас нет посетителей, которых можно бы было взять</p>
         <p>Когда появятся посетители - они будут распределены вам.</p>
       </div>
-      <div v-if="stage == 'awaitingForVisitor'" id="container">
+      <div v-if="stage == 'awaitingForVisitor'" class="container">
         <strong class="capitalize">В пути посетитель №{{ currentVisitor }}</strong>
         <p>Посетитель вызван к вам</p>
         <ion-grid style="margin-top: 5vh; width: 65vw;">
@@ -72,7 +72,7 @@
           </ion-row>
         </ion-grid>
       </div>
-      <div v-if="stage == 'InProgress'" id="container">
+      <div v-if="stage == 'InProgress'" class="container">
         <strong class="capitalize">Ваш посетитель №{{ currentVisitor }}</strong>
         <p>Вы работаете с этим посетителем сейчас</p>
         <ion-button @click="updateStatus('Finished')" style="margin-top: 5vh; margin-left: -4px;">Мы закончили, завершить</ion-button>
@@ -213,7 +213,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#container {
+.container {
   text-align: center;
   position: absolute;
   left: 0;
@@ -222,19 +222,19 @@ export default defineComponent({
   transform: translateY(-50%);
 }
 
-#container strong {
+.container strong {
   font-size: 20px;
   line-height: 26px;
 }
 
-#container p {
+.container p {
   font-size: 16px;
   line-height: 22px;
   color: #8c8c8c;
   margin: 0;
 }
 
-#container a {
+.container a {
   text-decoration: none;
 }
 </style>
