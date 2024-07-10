@@ -17,11 +17,9 @@
       </ion-header>
 
       <div v-if="stage == 'workspaceSelection'">
-        <div v-if="stage == 'InProgress'" class="container">
-          <strong class="capitalize">Выбор оператора</strong>
-          <p>Выберите оператора, за которого вы работаете</p>
-          <ion-button @click="updateStatus('Finished')" style="margin-top: 5vh; margin-left: -4px;">Мы закончили, завершить</ion-button>
-        </div>
+        <strong class="capitalize">Выбор оператора</strong>
+        <p>Выберите оператора, за которого вы работаете</p>
+        <ion-button @click="updateStatus('Finished')" style="margin-top: 5vh; margin-left: -4px;">Мы закончили, завершить</ion-button>
         
         <div style="width: 400px; max-width: 90vw; margin: auto;
   width: 50%;">
