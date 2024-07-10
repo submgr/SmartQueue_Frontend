@@ -98,7 +98,7 @@ if (path !== undefined) {
   selectedIndex.value = appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
 }
 
-localStorage.setItem("APIServer_InstanceAddress", "https://smartqueue.pages.dev")
+localStorage.setItem("APIServer_InstanceAddress", "https://smartqueue.deqstudio.com")
 </script>
 
 <style scoped>
