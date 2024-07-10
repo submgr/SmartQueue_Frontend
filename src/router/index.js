@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 const routes = [
     {
         path: '',
-        redirect: '/folder/Inbox'
+        redirect: '/view/mega'
     },
     {
         path: '/view/worker',
