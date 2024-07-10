@@ -85,14 +85,15 @@
 import {
   IonButtons, IonSelect,
   IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar,
-  IonItem, IonCol, IonButton, IonRow, IonGrid, IonItem, 
+  IonItem, IonCol, IonButton, IonRow, IonGrid, 
 } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   components: {
     IonButtons, IonSelect,
-    IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar
+    IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar,
+    IonItem, IonCol, IonButton, IonRow, IonGrid, 
   },
   data() {
     return {

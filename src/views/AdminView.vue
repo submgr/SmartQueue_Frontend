@@ -62,12 +62,15 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton } from '@ionic/vue';
+import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton,
+    IonMenuButton, IonTitle, IonToolbar, 
+ } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
     components: {
-        IonContent, IonPage, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton
+        IonContent, IonPage, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton,
+        IonMenuButton, IonTitle, IonToolbar, 
     },
     setup() {
         // Setup logic here
