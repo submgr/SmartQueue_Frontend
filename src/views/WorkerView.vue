@@ -84,7 +84,8 @@
 <script lang="ts">
 import {
   IonButtons, IonSelect,
-  IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar
+  IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar,
+  IonItem, IonCol, IonButton, IonRow, IonGrid, IonItem, 
 } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 

@@ -44,14 +44,16 @@
 <script lang="ts">
 import {
   IonButtons, IonSelect,
-  IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar
+  IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar,
+  IonItem, IonButton, IonCol, 
 } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   components: {
     IonButtons, IonSelect,
-    IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar
+    IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar,
+    IonItem, IonButton, IonCol, 
   },
   data() {
     return {
@@ -64,11 +66,9 @@ export default defineComponent({
         5: "3335",
         6: "3336"
       },
-      queueData: [{
-        id: 1,
-        worker: 5,
-        room: "365A"
-      }]
+      queueData: [
+
+      ]
     }
   },
   mounted() {
@@ -174,9 +174,10 @@ export default defineComponent({
 }
 
 table {
-  width: 80%;
+  width: 90%;
   margin-left: 5%;
-  margin-right: 1%;
+  margin-right: 5%;
+  margin-top: 6%;
   border-collapse: collapse;
   border-radius: 15px;
   overflow: hidden;
