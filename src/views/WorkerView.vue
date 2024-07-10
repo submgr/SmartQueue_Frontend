@@ -117,11 +117,16 @@ export default defineComponent({
       if (Number(this.workplaceIdInput) > -1) {
         var id = Number(this.workplaceIdInput);
         this.workspaceSetting_WorkerID = id;
+        this.stage = "workspaceDesk";
         localStorage.setItem("workspaceSetting_WorkerID", id + "")
       } else {
         console.log("Please, select correct value for the workplace's ID.", Number(this.workplaceIdInput))
       }
 
+    },
+    resetWorkspace(){
+      localStorage.removeItem("workspaceSetting_WorkerID");
+      this.stage = "workspaceSelection";
     },
     workplaceSelectorNewValue(event) {
       this.workspaceSetting_WorkerID = Number(event.detail.value);
