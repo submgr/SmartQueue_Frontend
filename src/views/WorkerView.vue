@@ -16,13 +16,12 @@
         </ion-toolbar>
       </ion-header>
 
-      <div v-if="stage == 'workspaceSelection'">
-        <strong class="capitalize">Выбор оператора</strong>
-        <p>Выберите оператора, за которого вы работаете</p>
-        <ion-button @click="updateStatus('Finished')" style="margin-top: 5vh; margin-left: -4px;">Мы закончили, завершить</ion-button>
+      <div v-if="stage == 'workspaceSelection'" class="container">
         
         <div style="width: 400px; max-width: 90vw; margin: auto;
   width: 50%;">
+  <strong class="capitalize">Выбор оператора</strong>
+  <p>Выберите оператора, за которого вы работаете</p>
           <ion-item style="margin-top: 5vh;">
             <ion-select label="Оператор" placeholder="Выберите" v-model="workplaceIdInput"
               @ionChange="workplaceSelectorNewValue">
