@@ -58,6 +58,8 @@ export default defineComponent({
   data() {
     return {
       isFullscreen: false,
+      // Below we have bidning of Workers to the Rooms where they are placed
+      // in format: OPERATOR_ID: ROOOM (STRING FORMAT)
       workerBinding: {
         1: "333",
         2: "3332",
@@ -86,7 +88,7 @@ export default defineComponent({
           var queueData = []
           Object.entries(response.data.data).forEach(([key, value]) => {
             const newData = {
-              id: parseInt(key) + 1, // Преобразование ключа в число и корректировка id, если необходимо
+              id: parseInt(key), // Преобразование ключа в число и корректировка id, если необходимо
               worker: parseInt(value.assignedWorker), // Преобразование assignedWorker в число
               room: "", // Установка значения room в пустую строку или другое стандартное значение,
               status: value.serviceState
