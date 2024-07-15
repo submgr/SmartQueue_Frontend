@@ -152,7 +152,7 @@ export default defineComponent({
                 }
               })
                 .then((response: AxiosResponse) => {
-                  if (response.data.status == "Assigned") {
+                  if (response.data.status.includes("Assigned")) {
                     clearInterval(intervalId);
                     this.currentVisitor = response.data.key;
                     this.stage = "awaitingForVisitor"
@@ -163,7 +163,7 @@ export default defineComponent({
                   console.error(error); // Log or process the error
                 });
             }, 4000);
-          } else if (response.data.status == "Assigned") {
+          } else if (response.data.status.includes("Assigned")) {
             this.currentVisitor = response.data.key;
             this.stage = "awaitingForVisitor"
           }
