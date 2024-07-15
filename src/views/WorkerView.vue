@@ -140,7 +140,7 @@ export default defineComponent({
         }
       })
         .then((response: AxiosResponse) => {
-          if (response.data.status == "AddedToFreeWorkers") {
+          if (response.data.status.includes("AddedToFreeWorkers")) {
             this.stage = "workspaceIsFreeOfWork"
 
             const intervalId = setInterval(() => {

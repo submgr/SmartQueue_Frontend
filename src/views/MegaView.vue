@@ -18,18 +18,22 @@
       <div>
 
         <table class="data">
-          <tr style="background-color: #0F2D69 !important;">
-            <th>Посетитель</th>
-            <th>Оператор</th>
-            <th>Аудитория</th>
+          <tr style="background-color: #0F2D69 !important; font-weight: 800 !important;">
+            <th style="font-weight: 800 !important;">Посетитель</th>
+            <th style="font-weight: 800 !important;">Оператор</th>
+            <th style="font-weight: 800 !important;">Аудитория</th>
           </tr>
 
-          <tr v-for="item in queueData" :class="{ 'highlighted': item.status === 'Calling' }"
-            style="text-align: center;">
-            <td :class="{ 'highlighted': item.status === 'Calling' }">{{ item.id }}</td>
-            <td :class="{ 'highlighted': item.status === 'Calling' }"> {{ item.worker || "В очереди"}} </td>
-            <td :class="{ 'highlighted': item.status === 'Calling' }">{{ workerBinding[item.worker] || "" }}</td>
-          </tr>
+          <TransitionGroup name="list">
+            <tr :key="item.id" v-for="item in queueData" :class="{ 'highlighted': item.status === 'Calling' }"
+              style="text-align: center; border-radius: 20px !important;">
+              <td :class="{ 'highlighted': item.status === 'Calling' }">{{ item.id }}</td>
+              <td :class="{ 'highlighted': item.status === 'Calling' }"> {{ item.worker || "В очереди" }} </td>
+              <td :class="{ 'highlighted': item.status === 'Calling' }">{{ workerBinding[item.worker] || "" }}</td>
+            </tr>
+          </TransitionGroup>
+
+
         </table>
       </div>
 
@@ -83,7 +87,7 @@ export default defineComponent({
 
     setInterval(() => {
       this.$axios.get(localStorage.getItem("APIServer_InstanceAddress") + '/queue/get', {
-        
+
       })
         .then((response: AxiosResponse) => {
           console.log(response.data.data)
@@ -107,32 +111,32 @@ export default defineComponent({
                 needToPlayNotificationSounds = true;
 
                 this.$axios.get(localStorage.getItem("APIServer_InstanceAddress") + '/queue/called', {
-                    params: {
-                      id: parseInt(key)
-                    }
+                  params: {
+                    id: parseInt(key)
+                  }
+                })
+                  .then(function (response: AxiosResponse) {
+                    // Handle success
+                    console.log('Request successful', response);
                   })
-                    .then(function (response: AxiosResponse) {
-                      // Handle success
-                      console.log('Request successful', response);
-                    })
-                    .catch(function (error) {
-                      // Handle error
-                      console.error('Request failed', error);
-                    });
+                  .catch(function (error) {
+                    // Handle error
+                    console.error('Request failed', error);
+                  });
 
 
               }
             }
           });
 
-          if(needToPlayNotificationSounds){
+          if (needToPlayNotificationSounds) {
             var audio = new Audio();
 
-                // Step 2: Set the source of the audio file
-                audio.src = '../../sounds/calling-sound.mp3'; // Replace with the actual path to your audio file
+            // Step 2: Set the source of the audio file
+            audio.src = '../../sounds/calling-sound.mp3'; // Replace with the actual path to your audio file
 
-                // Step 3: Play the sound
-                audio.play();
+            // Step 3: Play the sound
+            audio.play();
           }
 
           queueData.sort((a, b) => {
@@ -194,6 +198,29 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.flip-list-move {
+  transition: transform 0.8s ease;
+}
+
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  position: absolute;
+}
+
 @keyframes lightning {
   0% {
     background-color: transparent;
@@ -212,7 +239,8 @@ export default defineComponent({
 
 .highlighted {
   animation: lightning 4s infinite;
-  transform: scaleY(1.1); /* Makes the element 10% bigger */
+  font-weight: 800;
+  /* Makes the element 10% bigger */
 
 }
 
@@ -223,20 +251,20 @@ table {
   margin-right: 0%;
   margin-top: 0%;
   border-collapse: collapse;
-  border-radius: 0px;
   overflow: hidden;
   border-collapse: collapse;
   overflow: hidden;
 }
 
-td{
+td {
   padding: 1em;
   background: #e6e1e1;
   /* Удалите !important, если он здесь был */
   border-bottom: 2px solid white;
+  
 }
 
-tr th{
+tr th {
   background: #0C2D69 !important;
   color: white;
 }
@@ -248,6 +276,10 @@ th {
   font-weight: 400;
   /* Удалите !important, если он здесь был */
   border-bottom: 2px solid #20407c;
+}
+
+tr{
+  border-radius: 10px !important;
 }
 
 .css-mine {
