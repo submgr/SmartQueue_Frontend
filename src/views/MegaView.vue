@@ -62,6 +62,8 @@ export default defineComponent({
   data() {
     return {
       isFullscreen: false,
+      // Below we have bidning of Workers to the Rooms where they are placed
+      // in format: OPERATOR_ID: ROOOM (STRING FORMAT)
       workerBinding: {
         1: "333",
         2: "3332",
