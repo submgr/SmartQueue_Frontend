@@ -18,7 +18,7 @@
       <div>
 
         <table class="data">
-          <tr>
+          <tr style="background-color: #0F2D69 !important;">
             <th>Посетитель</th>
             <th>Оператор</th>
             <th>Аудитория</th>
@@ -27,15 +27,19 @@
           <tr v-for="item in queueData" :class="{ 'highlighted': item.status === 'Calling' }"
             style="text-align: center;">
             <td :class="{ 'highlighted': item.status === 'Calling' }">{{ item.id }}</td>
-            <td :class="{ 'highlighted': item.status === 'Calling' }"> {{ item.worker }}</td>
-            <td :class="{ 'highlighted': item.status === 'Calling' }">{{ workerBinding[item.worker] }}</td>
+            <td :class="{ 'highlighted': item.status === 'Calling' }"> {{ item.worker || "В очереди"}} </td>
+            <td :class="{ 'highlighted': item.status === 'Calling' }">{{ workerBinding[item.worker] || "" }}</td>
           </tr>
         </table>
       </div>
 
+      <div style="position: fixed; right: 0; bottom: 4vh; right: 6vw;">
+        <img style="height: 15vh;" src="../assets/images/01_Logo_HSE_full_rus_CMYK.png" />
+      </div>
+
       <div v-if="queueData.length < 1" id="container">
-        <strong class="capitalize">Очередь пуста</strong>
-        <p>Сейчас в очереди никого нет</p>
+        <strong style="font-size: 8vh !important; line-height: 1.7;" class="capitalize">Очередь пуста</strong>
+        <p style="font-size: 6vh !important; line-height: 0.75;">Сейчас в очереди никого нет</p>
       </div>
     </ion-content>
   </ion-page>
@@ -45,7 +49,7 @@
 import {
   IonButtons, IonSelect,
   IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar,
-  IonItem, IonButton, IonCol, 
+  IonItem, IonButton, IonCol,
 } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 
@@ -53,7 +57,7 @@ export default defineComponent({
   components: {
     IonButtons, IonSelect,
     IonSelectOption, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar,
-    IonItem, IonButton, IonCol, 
+    IonItem, IonButton, IonCol,
   },
   data() {
     return {
@@ -77,24 +81,57 @@ export default defineComponent({
 
     setInterval(() => {
       this.$axios.get(localStorage.getItem("APIServer_InstanceAddress") + '/queue/get', {
-        params: {
-          id: this.workspaceSetting_WorkerID // Replace YOUR_APP_URL_HERE with your actual app URL
-        }
+        
       })
         .then((response: AxiosResponse) => {
           console.log(response.data.data)
           var queueData = []
+
+          needToPlayNotificationSounds = false;
+
+          var needToPlayNotificationSounds = false;
           Object.entries(response.data.data).forEach(([key, value]) => {
             const newData = {
-              id: parseInt(key) + 1, // Преобразование ключа в число и корректировка id, если необходимо
+              id: parseInt(key), // Преобразование ключа в число и корректировка id, если необходимо
               worker: parseInt(value.assignedWorker), // Преобразование assignedWorker в число
               room: "", // Установка значения room в пустую строку или другое стандартное значение,
               status: value.serviceState
             };
             if (value.serviceState == "Calling" || value.serviceState == "Queued") {
               queueData.push(newData);
+              console.log(value.called)
+              if (value.called == "false" || value.called == false) {
+
+                needToPlayNotificationSounds = true;
+
+                this.$axios.get(localStorage.getItem("APIServer_InstanceAddress") + '/queue/called', {
+                    params: {
+                      id: parseInt(key)
+                    }
+                  })
+                    .then(function (response: AxiosResponse) {
+                      // Handle success
+                      console.log('Request successful', response);
+                    })
+                    .catch(function (error) {
+                      // Handle error
+                      console.error('Request failed', error);
+                    });
+
+
+              }
             }
           });
+
+          if(needToPlayNotificationSounds){
+            var audio = new Audio();
+
+                // Step 2: Set the source of the audio file
+                audio.src = '../../sounds/calling-sound.mp3'; // Replace with the actual path to your audio file
+
+                // Step 3: Play the sound
+                audio.play();
+          }
 
           queueData.sort((a, b) => {
             // Если оба элемента имеют статус "Calling", сортируем по id
@@ -115,7 +152,7 @@ export default defineComponent({
           // Handle error
           console.error(error); // Log or process the error
         });
-    }, 2500);
+    }, 4500);
 
     setInterval(() => {
       this.check();
@@ -161,37 +198,54 @@ export default defineComponent({
   }
 
   50% {
-    background-color: yellow;
+    background-color: #ed576b;
+    color: white;
   }
 
   100% {
     background-color: transparent;
+    color: black;
   }
 }
 
 .highlighted {
-  animation: lightning 1s infinite;
+  animation: lightning 4s infinite;
+  transform: scaleY(1.1); /* Makes the element 10% bigger */
+
 }
 
 table {
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 6%;
+  font-size: 24px;
+  width: 100%;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin-top: 0%;
   border-collapse: collapse;
-  border-radius: 15px;
+  border-radius: 0px;
   overflow: hidden;
   border-collapse: collapse;
-  border-radius: 15px;
   overflow: hidden;
 }
 
-th,
-td {
+td{
   padding: 1em;
-  background: #ddd;
+  background: #e6e1e1;
   /* Удалите !important, если он здесь был */
   border-bottom: 2px solid white;
+}
+
+tr th{
+  background: #0C2D69 !important;
+  color: white;
+}
+
+th {
+  padding: 1.2em;
+  background: #20407c;
+  color: white;
+  font-weight: 400;
+  /* Удалите !important, если он здесь был */
+  border-bottom: 2px solid #20407c;
 }
 
 .css-mine {
