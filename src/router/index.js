@@ -19,6 +19,10 @@ const routes = [
     {
         path: '/view/tickets',
         component: () => import('../views/TicketsView.vue')
+    },
+    {
+        path: '/view/queuedWorkers',
+        component: () => import ('../views/QueuedOperators.vue')
     }
 ];
 const router = createRouter({

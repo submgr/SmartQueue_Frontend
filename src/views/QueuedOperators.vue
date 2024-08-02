@@ -29,8 +29,11 @@ export default defineComponent({
             data: null
         }
     },
+    mounted() {
+        this.getData();
+    },
     methods: {
-        async newTicket() {
+        async getData() {
             // eslint-disable-next-line
             const parent_this = this;
 
@@ -54,16 +57,6 @@ export default defineComponent({
                     alert(JSON.stringify(error))
                 });
 
-        },
-        async registered(id) {
-            const toast = await toastController.create({
-                message: `Зарегистрирован №${id}`,
-                duration: 3500,
-                color: "primary",
-                position: 'top',
-            });
-
-            await toast.present();
         }
     }
 });

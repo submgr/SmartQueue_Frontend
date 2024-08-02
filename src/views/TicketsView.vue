@@ -42,6 +42,9 @@ export default defineComponent({
                     this.locked = false;
                     if (response.data.status == "okay") {
                         parent_this.registered(response.data.added);
+                        if(response.data.freeWorkerAssigned == "true"){
+                            alert("Назначенный оператор: " + response.data.assignedWorker)
+                        }
                     }
 
                 })

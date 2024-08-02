@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import ('../views/TicketsView.vue')
   },
   {
-    path: '/view/queuedworkers',
+    path: '/view/queuedWorkers',
     component: () => import ('../views/QueuedOperators.vue')
   }
 ]
